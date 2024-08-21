@@ -5,9 +5,12 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import laboratorio2.segmentacionCadenas.SegmentacionCadenas;
 
 
 public class EchoTCPServer {
+    SegmentacionCadenas segmentarCadenas = new SegmentacionCadenas();
+
     public static final int PORT = 3400;
 
 
@@ -41,11 +44,29 @@ public class EchoTCPServer {
         System.out.println("[Server] From client: " + message);
 
 
-        String answer = message;
+        String answer = identificarFuncion(message);
 
 
         toNetwork.println(answer);
     }
+
+    private String identificarFuncion(String message){
+        String[] cad = message.split(" ");
+        String answer = segmentarCadenas.generarCadena(Integer.parseInt(cad[1]));
+        if(cad[0].equals("GEN-CAD")){
+
+            if(cad.length>=3) {
+                String[] cd = segmentarCadenas.dividirCadena(answer, Integer.parseInt(cad[2]));
+                answer="";
+                for(int i=0;i<cd.length;i++){
+                    answer += cd[i];
+                    if(cd.length-1!=i){
+                        answer += ", ";
+                    }
+                }
+            }
+        }
+    return answer;}
 
 
     private void createStreams(Socket socket) throws Exception {

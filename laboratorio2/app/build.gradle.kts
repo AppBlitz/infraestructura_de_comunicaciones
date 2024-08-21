@@ -39,6 +39,8 @@ java {
 }
 
 application {
-    // Define the main class for the application.
+    // Define the main class for the application
     mainClass.set("laboratorio2.App")
+    mainClass.set("laboratorio2.EchoTCPClient")
+    mainClass.set("laboratorio2.EchoTCPServer")
 }
