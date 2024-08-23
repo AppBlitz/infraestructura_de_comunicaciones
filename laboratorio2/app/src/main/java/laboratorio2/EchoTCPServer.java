@@ -47,6 +47,7 @@ public class EchoTCPServer {
     private String identificarFuncion(String message) {
         String[] cad = message.split(" ");
         String answer = "";
+        index inde = new index();
         if (cad[0].equals("GEN-CAD")) {
             answer = segmentarCadenas.generarCadena(Integer.parseInt(cad[1]));
 
@@ -60,17 +61,17 @@ public class EchoTCPServer {
                     }
                 }
             }
-        } else {
-            index inde = new index();
-            if (inde.comprobarSolicitud((cad[0])) >= 0 && inde.comprobarSolicitud((cad[0])) <= 2) {
-                answer = inde.solicitud(message, cad);
-            } else {
-                if (cad[0].equals(("CAD-SEG"))) {
-                    SegmentacionCadenas seg = new SegmentacionCadenas();
-                    answer = seg.dividirCadenaSegmentos(cad[1], Integer.parseInt(cad[2]), Integer.parseInt((cad[3])),
-                            Integer.parseInt((cad[4])));
-                }
+        } else  if (cad[0].equals("CAD-SEG")) {
+            answer = segmentarCadenas.generarCadena(Integer.parseInt(cad[1]));
+            String centinela="";
+            SegmentacionCadenas seg = new SegmentacionCadenas();
+            centinela= seg.dividirCadenaSegmentos(answer, Integer.parseInt(cad[2]), Integer.parseInt((cad[3])), Integer.parseInt((cad[4])));
+            answer="";
+            answer=centinela;
             }
+        else if (inde.comprobarSolicitud((cad[0])) >= 0 && inde.comprobarSolicitud((cad[0])) <= 2){
+            answer="";
+            answer = inde.solicitud(inde.comprobarSolicitud(cad[0]), cad);
         }
         return answer;
     }

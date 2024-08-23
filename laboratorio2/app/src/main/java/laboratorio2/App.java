@@ -13,6 +13,7 @@ public class App {
         SegmentacionCadenas seg = new SegmentacionCadenas();
         String cadena = seg.dividirCadenaSegmentos("abcdefghijklmnop", 5, 9, 2);
         System.out.println(cadena);
+        System.out.println("Hello world");
 
     }
 }
